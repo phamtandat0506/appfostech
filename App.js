@@ -1,25 +1,30 @@
-<<<<<<< HEAD
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
-import SearchHome from "./components/Search/SearchHome/SearchHome";
-=======
+
 import { NavigationContainer } from '@react-navigation/native';
 import { StyleSheet } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from './components/Home/Home';
 
->>>>>>> 53db62e13d8325c382e27245ba58f45246034e93
+
+import { StatusBar } from "expo-status-bar";
+import { StyleSheet, Text, View } from "react-native";
+import SearchHome from "./components/Search/SearchHome/SearchHome";
+
+import { NavigationContainer } from '@react-navigation/native';
+import { StyleSheet } from 'react-native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Home from './components/Home/Home';
+
 
 export default function App() {
 
   const Stack = createNativeStackNavigator()
 
   return (
-<<<<<<< HEAD
+
     <View style={styles.container}>
       <SearchHome />
     </View>
-=======
+
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{
@@ -48,9 +53,19 @@ export default function App() {
           }}
         />
 
+
       </Stack.Navigator>
     </NavigationContainer>
->>>>>>> 53db62e13d8325c382e27245ba58f45246034e93
+
+        <Stack.Screen 
+                  name="Search" 
+                  component={SearchHome}
+                />
+
+      </Stack.Navigator>
+    </NavigationContainer>
+    
+
   );
 }
 
