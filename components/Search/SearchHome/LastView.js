@@ -11,12 +11,12 @@ const LastView = () => {
       <Text style={styles.title}>LastViewed</Text>
       <View>
         <FlatProduct
-          source={require("../../../assets/Pikachu.png")}
+          source={require("../../../assets/1.jpg")}
           nameProduct="Google pika"
           price="USD 49"
         />
         <FlatProduct
-          source={require("../../../assets/buff.png")}
+          source={require("../../../assets/2.jpg")}
           nameProduct="Google buff"
           price="USD 43"
         />

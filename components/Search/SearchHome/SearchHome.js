@@ -3,8 +3,8 @@ import { View, Text, Button, StyleSheet, StatusBar } from "react-native";
 import { Searchbar } from "react-native-paper";
 import LastView from "./LastView";
 import LatedSearch from "./LatedSearch";
-// teamview eo cho comment, cay
-const SearchHome = () => {
+
+const SearchHome = ({ navigation }) => {
   const [searchQuery, setSearchQuery] = React.useState("");
 
   const onChangeSearch = (query) => setSearchQuery(query);
@@ -12,7 +12,7 @@ const SearchHome = () => {
   return (
     <View style={styles.container}>
       <View style={styles.wrapper}>
-        <Text style={styles.navigationTitle}>Search</Text>
+        {/* <Text style={styles.navigationTitle}>Search</Text> */}
         <Searchbar
           style={styles.search}
           placeholder="What are you looking for ?"
@@ -30,10 +30,10 @@ const SearchHome = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
-    // backgroundColor: "#FDFEFF",
+    paddingTop: StatusBar.currentHeight || 20,
+    backgroundColor: "#FDFEFF",
   },
-  // },
+
   wrapper: {},
   search: {
     backgroundColor: "#E0ECF8",
