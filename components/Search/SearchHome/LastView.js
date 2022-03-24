@@ -5,20 +5,22 @@ import FlatProduct from "./FlatProduct";
 
 // create a component
 
-const LastView = () => {
+const LastView = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>LastViewed</Text>
       <View>
         <FlatProduct
-          source={require("../../../assets/1.jpg")}
-          nameProduct="Google pika"
+          source={require("../../../assets/air.png")}
+          nameProduct="Air pods"
           price="USD 49"
+          navigation={navigation}
         />
         <FlatProduct
-          source={require("../../../assets/2.jpg")}
-          nameProduct="Google buff"
+          source={require("../../../assets/iphone7.png")}
+          nameProduct="Iphone 7"
           price="USD 43"
+          navigation={navigation}
         />
       </View>
     </View>
@@ -34,6 +36,8 @@ const styles = StyleSheet.create({
     fontSize: 24,
     marginTop: 20,
     fontWeight: "700",
+    marginLeft: 10,
+    lineHeight: 28.64,
   },
 });
 

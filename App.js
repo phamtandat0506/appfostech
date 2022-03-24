@@ -5,12 +5,10 @@ import Home from "./components/Home/Home";
 
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
-import SearchHome from "./components/Search/SearchHome/SearchHome";
+
 import Narbar from "./components/Narbar/Narbar";
 
 export default function App() {
-  const Stack = createNativeStackNavigator();
-
   return (
     <>
       {/* <NavigationContainer>
@@ -23,7 +21,7 @@ export default function App() {
             },
             headerTintColor: "black",
           }}>
-          <Narbar />
+          <Stack.Screen name="SearchDetail" component={ProductDetail} />
         </Stack.Navigator>
       </NavigationContainer> */}
       <Narbar />

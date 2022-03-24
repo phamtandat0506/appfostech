@@ -9,12 +9,18 @@ import {
   Image,
 } from "react-native";
 
-const FlatProduct = ({ source, nameProduct, price }) => {
+const FlatProduct = ({ source, nameProduct, price, navigation }) => {
   return (
     <View style={styles.body}>
       <Image style={styles.image} source={source} />
       <View style={styles.info}>
-        <Text style={styles.nameProduct}>{nameProduct}</Text>
+        <Text
+          style={styles.nameProduct}
+          onPress={() => {
+            navigation.navigate("ProductDetail");
+          }}>
+          {nameProduct}
+        </Text>
         <Text style={styles.Price}>{price}</Text>
       </View>
     </View>

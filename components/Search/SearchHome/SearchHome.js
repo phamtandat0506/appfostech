@@ -19,7 +19,7 @@ const SearchHome = ({ navigation }) => {
           onChangeText={onChangeSearch}
           value={searchQuery}
         />
-        <LastView />
+        <LastView navigation={navigation} />
 
         <LatedSearch />
       </View>
@@ -39,6 +39,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#E0ECF8",
     borderRadius: 21.5,
     color: "#1F53E4",
+    marginLeft: 10,
+    marginRight: 10,
   },
   navigationTitle: {
     fontSize: 32,

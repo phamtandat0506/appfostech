@@ -7,10 +7,38 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "../Home/Home";
 import SearchHome from "../Search/SearchHome/SearchHome";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import ProductDetail from "../Search/ProductDetail.js/ProductDetail";
+import ModalAdded from "../Search/ModalAdded";
 
 // create a component
+const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
-const Narbar = () => {
+function SearchScreen() {
+  return (
+    <Stack.Navigator initialRouteName="Search">
+      <Stack.Screen
+        name="SearchHome"
+        component={SearchHome}
+        options={{
+          headerTitleStyle: {
+            fontWeight: "bold",
+            fontSize: 32,
+          },
+          title: "Search",
+        }}
+      />
+      <Stack.Screen
+        name="ProductDetail"
+        component={ProductDetail}
+        options={{
+          title: "",
+        }}
+      />
+      <Stack.Screen name="ModalAdded" component={ModalAdded} />
+    </Stack.Navigator>
+  );
+}
+const Narbar = ({ navigation }) => {
   return (
     <NavigationContainer>
       <Tab.Navigator
@@ -46,14 +74,14 @@ const Narbar = () => {
           }}
         />
         <Tab.Screen
+          component={SearchScreen}
           name="Search"
-          component={SearchHome}
           options={{
-            headerTitleStyle: {
-              fontWeight: "bold",
-              fontSize: 32,
-            },
-            headerLeft: () => null,
+            // headerTitleStyle: {
+            //   fontWeight: "bold",
+            //   fontSize: 32,
+            // },
+            headerShown: false,
           }}
         />
       </Tab.Navigator>
