@@ -18,7 +18,8 @@ const FlatProduct = ({ source, nameProduct, price, navigation }) => {
           style={styles.nameProduct}
           onPress={() => {
             navigation.navigate("ProductDetail");
-          }}>
+          }}
+          navigation={navigation}>
           {nameProduct}
         </Text>
         <Text style={styles.Price}>{price}</Text>

@@ -7,8 +7,11 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "../Home/Home";
 import SearchHome from "../Search/SearchHome/SearchHome";
 import Ionicons from "react-native-vector-icons/Ionicons";
+
 import ProductDetail from "../Search/ProductDetail.js/ProductDetail";
-import ModalAdded from "../Search/ModalAdded";
+import Account from "../Account/Account";
+import AccountInfo from "../Account/AccountInfo";
+import ChangeEmail from "../Account/ChangeEmail";
 
 // create a component
 const Stack = createNativeStackNavigator();
@@ -34,7 +37,45 @@ function SearchScreen() {
           title: "",
         }}
       />
-      <Stack.Screen name="ModalAdded" component={ModalAdded} />
+    </Stack.Navigator>
+  );
+}
+function AccountScreen() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Account"
+        component={Account}
+        options={{
+          headerTitleStyle: {
+            fontWeight: "800",
+            fontSize: 32,
+          },
+          title: "Account",
+        }}
+      />
+      <Stack.Screen
+        name="AccountInfo"
+        component={AccountInfo}
+        options={{
+          headerTitleStyle: {
+            fontWeight: "bold",
+            fontSize: 32,
+          },
+          title: "",
+        }}
+      />
+      <Stack.Screen
+        name="ChangeEmail"
+        component={ChangeEmail}
+        options={{
+          headerTitleStyle: {
+            fontWeight: "bold",
+            fontSize: 32,
+          },
+          title: "",
+        }}
+      />
     </Stack.Navigator>
   );
 }
@@ -51,11 +92,14 @@ const Narbar = ({ navigation }) => {
             } else if (route.name === "Search") {
               iconName = focused ? "ios-search" : "ios-search";
             }
+            if (route.name === "AccountScreen") {
+              iconName = focused ? "ios-person-outline" : "ios-person-outline";
+            }
 
             // You can return any component that you like here!
             return <Ionicons name={iconName} size={size} color={color} />;
           },
-          tabBarActiveTintColor: "tomato",
+          tabBarActiveTintColor: "blue",
           tabBarInactiveTintColor: "gray",
         })}>
         <Tab.Screen
@@ -82,6 +126,18 @@ const Narbar = ({ navigation }) => {
             //   fontSize: 32,
             // },
             headerShown: false,
+          }}
+        />
+        <Tab.Screen
+          component={AccountScreen}
+          name="AccountScreen"
+          options={{
+            // headerTitleStyle: {
+            //   fontWeight: "bold",
+            //   fontSize: 32,
+            // },
+            headerShown: false,
+            title: "User",
           }}
         />
       </Tab.Navigator>

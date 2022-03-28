@@ -18,6 +18,7 @@ const SearchHome = ({ navigation }) => {
           placeholder="What are you looking for ?"
           onChangeText={onChangeSearch}
           value={searchQuery}
+          navigation={navigation}
         />
         <LastView navigation={navigation} />
 
