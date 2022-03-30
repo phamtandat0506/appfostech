@@ -8,22 +8,10 @@ import { StyleSheet, Text, View } from "react-native";
 
 import Narbar from "./components/Narbar/Narbar";
 
+const Stack = createNativeStackNavigator();
 export default function App() {
   return (
     <>
-      {/* <NavigationContainer>
-        <Stack.Navigator
-          screenOptions={{
-            headerStyle: {
-              backgroundColor: "#fff",
-              fontSize: "32",
-              fontWeight: 800,
-            },
-            headerTintColor: "black",
-          }}>
-          <Stack.Screen name="SearchDetail" component={ProductDetail} />
-        </Stack.Navigator>
-      </NavigationContainer> */}
       <Narbar />
     </>
   );
