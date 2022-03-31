@@ -1,9 +1,13 @@
 //import liraries
 import React, { Component } from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, Image, Button } from "react-native";
+
+import { useSelector } from "react-redux";
 
 // create a component
 const Account = ({ navigation }) => {
+  const { auth } = useSelector((state) => state);
+
   return (
     <View style={styles.container}>
       <View style={styles.wrap}>

@@ -1,26 +1,13 @@
-import { NavigationContainer } from "@react-navigation/native";
+import Narbar from "./components/Screens/Narbar";
+import { Provider } from "react-redux";
+import { store } from "./Redux/store";
+import Stacks from "./components/Screens/Stacks";
 
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import Home from "./components/Home/Home";
-
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
-
-import Narbar from "./components/Narbar/Narbar";
-
-const Stack = createNativeStackNavigator();
 export default function App() {
   return (
-    <>
-      <Narbar />
-    </>
+    <Provider store={store}>
+      <Stacks />
+      {/* <Narbar /> */}
+    </Provider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: StatusBar.currentHeight || 20,
-    backgroundColor: "#FDFEFF",
-  },
-});
