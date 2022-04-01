@@ -103,56 +103,54 @@ function AccountScreen() {
 }
 const Narbar = ({ navigation }) => {
   return (
-    <NavigationContainer>
-      <Tab.Navigator
-        screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused, color, size }) => {
-            let iconName;
-            if (route.name === "Home") {
-              iconName = focused ? "ios-home" : "ios-home-outline";
-            } else if (route.name === "Search") {
-              iconName = focused ? "ios-search" : "ios-search";
-            }
-            if (route.name === "AccountScreen") {
-              iconName = focused ? "ios-person-outline" : "ios-person-outline";
-            }
-            return <Ionicons name={iconName} size={size} color={color} />;
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName;
+          if (route.name === "Home") {
+            iconName = focused ? "ios-home" : "ios-home-outline";
+          } else if (route.name === "Search") {
+            iconName = focused ? "ios-search" : "ios-search";
+          }
+          if (route.name === "AccountScreen") {
+            iconName = focused ? "ios-person-outline" : "ios-person-outline";
+          }
+          return <Ionicons name={iconName} size={size} color={color} />;
+        },
+        tabBarActiveTintColor: "blue",
+        tabBarInactiveTintColor: "gray",
+      })}>
+      <Tab.Screen
+        name="Home"
+        component={Home}
+        options={{
+          title: "Home",
+          headerStyle: {
+            backgroundColor: "#fff",
           },
-          tabBarActiveTintColor: "blue",
-          tabBarInactiveTintColor: "gray",
-        })}>
-        <Tab.Screen
-          name="Home"
-          component={Home}
-          options={{
-            title: "Home",
-            headerStyle: {
-              backgroundColor: "#fff",
-            },
-            headerTintColor: "#000",
-            headerTitleStyle: {
-              fontWeight: "bold",
-              fontSize: 32,
-            },
-          }}
-        />
-        <Tab.Screen
-          component={SearchScreen}
-          name="Search"
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Tab.Screen
-          component={AccountScreen}
-          name="AccountScreen"
-          options={{
-            headerShown: false,
-            title: "User",
-          }}
-        />
-      </Tab.Navigator>
-    </NavigationContainer>
+          headerTintColor: "#000",
+          headerTitleStyle: {
+            fontWeight: "bold",
+            fontSize: 32,
+          },
+        }}
+      />
+      <Tab.Screen
+        component={SearchScreen}
+        name="Search"
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Tab.Screen
+        component={AccountScreen}
+        name="AccountScreen"
+        options={{
+          headerShown: false,
+          title: "User",
+        }}
+      />
+    </Tab.Navigator>
   );
 };
 

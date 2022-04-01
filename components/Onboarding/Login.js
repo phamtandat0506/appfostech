@@ -14,13 +14,15 @@ import { login } from "../../Redux/actions/authAction";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useState } from "react";
 import { useEffect } from "react";
+import { useNavigation } from "@react-navigation/native";
 
 // create a component
-const Login = ({ navigation }) => {
+const Login = () => {
   const [Username, setUsername] = useState("");
   const [Password, setPassword] = useState("");
   const dispatch = useDispatch();
   const { auth } = useSelector((state) => state);
+  const navigation = useNavigation();
   // const [token, setToken] = useState("");
 
   const handleSkip = () => {};
@@ -29,7 +31,7 @@ const Login = ({ navigation }) => {
   };
   useEffect(() => {
     if (auth.token) {
-      //navigation.navigate("Home");
+      navigation.navigate("Narbar");
     } else {
       navigation.navigate("Login");
     }
