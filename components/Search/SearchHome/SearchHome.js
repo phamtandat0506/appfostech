@@ -35,7 +35,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#FDFEFF",
   },
 
-  wrapper: {},
+  wrapper: {
+    padding: 20,
+  },
   search: {
     backgroundColor: "#E0ECF8",
     borderRadius: 21.5,

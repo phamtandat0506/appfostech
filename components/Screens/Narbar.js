@@ -23,6 +23,9 @@ import Account from "../Account/Account";
 import AccountInfo from "../Account/AccountInfo";
 import ChangeEmail from "../Account/ChangeEmail";
 import Login from "../Onboarding/Login";
+import ListProduct from "../Home/ListProduct";
+import Categories from "../Home/Categories";
+import News from "../Home/News";
 
 // create a component
 const Stack = createNativeStackNavigator();
@@ -59,7 +62,7 @@ function AccountScreen() {
         component={Account}
         options={{
           headerTitleStyle: {
-            fontWeight: "800",
+            fontWeight: "bold",
             fontSize: 32,
           },
           title: "Account",
@@ -101,13 +104,63 @@ function AccountScreen() {
     </Stack.Navigator>
   );
 }
-const Narbar = ({ navigation }) => {
+function HomeScreen() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Home"
+        component={Home}
+        options={{
+          headerTitleStyle: {
+            fontWeight: "bold",
+            fontSize: 32,
+          },
+          title: "Home",
+        }}
+      />
+      <Stack.Screen
+        name="Categories"
+        component={Categories}
+        options={{
+          headerTitleStyle: {
+            fontWeight: "bold",
+            fontSize: 32,
+          },
+          title: "",
+        }}
+      />
+      <Stack.Screen
+        name="ListProduct"
+        component={ListProduct}
+        options={{
+          headerTitleStyle: {
+            fontWeight: "bold",
+            fontSize: 32,
+          },
+          title: "",
+        }}
+      />
+      <Stack.Screen
+        name="News"
+        component={News}
+        options={{
+          headerTitleStyle: {
+            fontWeight: "bold",
+            fontSize: 32,
+          },
+          title: "",
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
+const Narbar = () => {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
-          if (route.name === "Home") {
+          if (route.name === "HomeScreen") {
             iconName = focused ? "ios-home" : "ios-home-outline";
           } else if (route.name === "Search") {
             iconName = focused ? "ios-search" : "ios-search";
@@ -115,24 +168,17 @@ const Narbar = ({ navigation }) => {
           if (route.name === "AccountScreen") {
             iconName = focused ? "ios-person-outline" : "ios-person-outline";
           }
-          return <Ionicons name={iconName} size={size} color={color} />;
+          return <Ionicons name={iconName} size={25} color={color} />;
         },
         tabBarActiveTintColor: "blue",
         tabBarInactiveTintColor: "gray",
       })}>
       <Tab.Screen
-        name="Home"
-        component={Home}
+        name="HomeScreen"
+        component={HomeScreen}
         options={{
-          title: "Home",
-          headerStyle: {
-            backgroundColor: "#fff",
-          },
-          headerTintColor: "#000",
-          headerTitleStyle: {
-            fontWeight: "bold",
-            fontSize: 32,
-          },
+          headerShown: false,
+          title: "",
         }}
       />
       <Tab.Screen
@@ -140,6 +186,7 @@ const Narbar = ({ navigation }) => {
         name="Search"
         options={{
           headerShown: false,
+          title: "",
         }}
       />
       <Tab.Screen
@@ -147,7 +194,7 @@ const Narbar = ({ navigation }) => {
         name="AccountScreen"
         options={{
           headerShown: false,
-          title: "User",
+          title: "",
         }}
       />
     </Tab.Navigator>

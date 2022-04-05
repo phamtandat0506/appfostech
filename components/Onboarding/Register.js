@@ -1,4 +1,5 @@
 //import liraries
+import { useNavigation } from "@react-navigation/native";
 import React, { Component } from "react";
 import {
   View,
@@ -10,9 +11,10 @@ import {
 } from "react-native";
 
 // create a component
-const Register = ({ navigation }) => {
+const Register = () => {
+  const navigation = useNavigation();
   const handleSkip = () => {
-    //setIsShow(true);
+    navigation.navigate("Narbar");
   };
   return (
     <View style={styles.wrap}>

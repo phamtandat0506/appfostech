@@ -9,6 +9,8 @@ import {
   Dimensions,
   Animated,
 } from "react-native";
+import Ionicons from "react-native-vector-icons/Ionicons";
+import { useNavigation } from "@react-navigation/native";
 
 const w = Dimensions.get("screen").width;
 const h = w * 0.6;
@@ -20,9 +22,9 @@ const images = [
   "https://images.unsplash.com/photo-1488998427799-e3362cec87c3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NjV8fHRlY2h8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
 ];
 
-export default function Home({ navigation, route }) {
-  const [active, setActive] = useState(0);
-
+export default function Home() {
+  const [active, setActive] = useState("");
+  const navigation = useNavigation();
   const handleScroll = (event) => {
     const slide = Math.ceil(
       event.nativeEvent.contentOffset.x /
@@ -34,21 +36,13 @@ export default function Home({ navigation, route }) {
   };
 
   return (
-    <View>
+    <View style={styles.container}>
       <View style={styles.inSlider}>
         <ScrollView
           pagingEnabled
           horizontal
           style={styles.scroll}
-          onScroll={(event) => {
-            const slide = Math.ceil(
-              event.nativeEvent.contentOffset.x /
-                event.nativeEvent.layoutMeasurement.width
-            );
-            if (slide !== active) {
-              setActive(slide);
-            }
-          }}>
+          onScroll={handleScroll}>
           {images.map((image, index) => (
             <Image
               key={index}
@@ -70,10 +64,79 @@ export default function Home({ navigation, route }) {
           ))}
         </View>
       </View>
-
       <View style={styles.flex}>
         <View style={styles.inFlex}>
-          <Text onPress={() => navigation.navigate("Search")}>1</Text>
+          <View>
+            <Ionicons
+              name="menu-outline"
+              style={styles.text}
+              onPress={() => {
+                navigation.navigate("Categories");
+              }}></Ionicons>
+          </View>
+          <Text style={styles.title}>Categories</Text>
+        </View>
+        <View style={styles.inFlex}>
+          <View>
+            <Ionicons name="star-outline" style={styles.text}></Ionicons>
+          </View>
+          <Text style={styles.title}>Favorites</Text>
+        </View>
+        <View style={styles.inFlex}>
+          <View>
+            <Ionicons name="gift-outline" style={styles.text}></Ionicons>
+          </View>
+          <Text style={styles.title}>Gifts</Text>
+        </View>
+        <View style={styles.inFlex}>
+          <View>
+            <Ionicons name="people-outline" style={styles.text}></Ionicons>
+          </View>
+          <Text style={styles.title}>Best selling</Text>
+        </View>
+      </View>
+      <View style={styles.sales}>
+        <Text
+          style={{
+            fontSize: 24,
+            color: "#0A1034",
+            textAlign: "center",
+          }}>
+          Sales
+        </Text>
+        <View style={styles.wapper}>
+          <View style={styles.product}>
+            <Image
+              style={styles.imgProduct}
+              source={require("../../assets/smartphone.png")}
+            />
+            <Text
+              style={{
+                color: "#0A1034",
+                fontSize: 18,
+                fontWeight: "600",
+                textAlign: "center",
+                top: 5,
+              }}>
+              Smartphones
+            </Text>
+          </View>
+          <View style={styles.product}>
+            <Image
+              style={styles.imgProduct}
+              source={require("../../assets/monitor.png")}
+            />
+            <Text
+              style={{
+                color: "#0A1034",
+                fontSize: 18,
+                fontWeight: "600",
+                textAlign: "center",
+                top: 5,
+              }}>
+              Monitor
+            </Text>
+          </View>
         </View>
       </View>
     </View>
@@ -83,12 +146,14 @@ export default function Home({ navigation, route }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 10,
+    flexDirection: "column",
+    justifyContent: "space-around",
+    backgroundColor: "#FDFEFF",
   },
   inSlider: {
-    marginTop: 10,
     width: w,
     height: 200,
+    marginTop: 10,
   },
   scroll: {
     width: w,
@@ -97,98 +162,66 @@ const styles = StyleSheet.create({
   img: {
     width: w,
     height: h,
-    resizeMode: "cover",
+    resizeMode: "contain",
     borderRadius: 5,
   },
   dot: {
     flexDirection: "row",
     position: "absolute",
-    bottom: -20,
+    bottom: -30,
     alignSelf: "center",
   },
   textInDot: {
-    color: "#888",
+    color: "#f1f1f1",
     margin: 3,
+    fontSize: 12,
   },
   textInDotActive: {
-    color: "#fff",
+    color: "#888",
     margin: 3,
+    fontSize: 12,
   },
-  flex: {},
+  flex: {
+    top: -50,
+    flexDirection: "row",
+    justifyContent: "space-around",
+  },
   inFlex: {
-    backgroundColor: "#000",
-    width: 30,
-    margin: 10,
-    padding: 20,
+    backgroundColor: "#E0ECF8",
+    top: 40,
+    width: 80,
+    height: 80,
     fontSize: 30,
     textAlign: "center",
+    borderRadius: 100,
+  },
+  text: {
+    margin: 22,
+    fontSize: 35,
+  },
+  title: {
+    fontSize: 14,
+    color: "#18194E",
+    textAlign: "center",
+    top: 5,
+  },
+  wapper: {
+    flexDirection: "row",
+    marginHorizontal: 10,
+    justifyContent: "space-around",
+  },
+  sales: {
+    top: -30,
+    bottom: 10,
+  },
+  product: {
+    top: 10,
+    backgroundColor: "#ffffff",
+    padding: 10,
+  },
+  imgProduct: {
+    resizeMode: "contain",
+    width: 150,
+    height: 150,
   },
 });
-
-// import React, { Component } from "react";
-// import {
-//     StyleSheet,
-//     View,
-//     Text
-// } from "react-native";
-
-// import { SliderBox } from "react-native-image-slider-box";
-
-// export default class Home extends Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       images: [
-//         "https://source.unsplash.com/1024x768/?nature",
-//         "https://source.unsplash.com/1024x768/?water",
-//         "https://source.unsplash.com/1024x768/?girl",
-//         "https://source.unsplash.com/1024x768/?tree",
-//       ]
-//     };
-//   }
-
-//   render() {
-
-//     const images = [
-//         'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8dGVjaHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60',
-//         'https://images.unsplash.com/photo-1531297484001-80022131f5a1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1120&q=80',
-//         'https://images.unsplash.com/photo-1488998427799-e3362cec87c3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NjV8fHRlY2h8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60'
-//     ]
-
-//     return (
-//       <View style={styles.container}>
-//       <Text></Text>
-//         <SliderBox
-//             images={this.state.images}
-//             onCurrentImagePressed={index =>
-//                 console.warn(`image ${index} pressed`)
-//             }
-//             sliderBoxHeight={200}
-//             paginationBoxVerticalPadding={20}
-//             autoplay
-//             circleLoop
-//             ImageComponentStyle={{
-//                 borderRadius: 15,
-//                 width: '97%',
-//                 marginTop: 5,
-//                 height: 150,
-//             }}
-//             dotStyle={{
-//                 marginTop: 20,
-//             }}
-//         />
-
-//         <Image
-//             source={require('https://images.unsplash.com/photo-1488998427799-e3362cec87c3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NjV8fHRlY2h8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60')}
-
-//             />
-//       </View>
-//     );
-//   }
-// }
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1
-//   }
-// });

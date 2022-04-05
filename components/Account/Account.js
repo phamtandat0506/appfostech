@@ -1,51 +1,83 @@
 //import liraries
-import React, { Component } from "react";
+import React, { Component, useEffect, useState } from "react";
 import { View, Text, StyleSheet, Image, Button } from "react-native";
 
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 import { useSelector } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
 
 // create a component
-const Account = ({ navigation }) => {
+
+const Account = () => {
   const { auth } = useSelector((state) => state);
+  const [isShow, setShow] = useState(false);
+  const navigation = useNavigation();
+
+  useEffect(async () => {
+    const jsonValue = await AsyncStorage.getItem("@token_key");
+
+    if (JSON.parse(jsonValue) !== null) {
+      navigation.navigate("Account");
+      setShow(true);
+    } else {
+      setShow(false);
+    }
+  }, []);
 
   return (
     <View style={styles.container}>
-      <View style={styles.wrap}>
-        <Image
-          style={styles.image}
-          source={require("../../assets/thanhvinh.jpg")}
-        />
-        <View style={styles.account}>
-          <Text style={{ fontSize: 24, fontWeight: "400" }}>Thành Vinh</Text>
-          <Text style={{ fontSize: 16, fontWeight: "500" }}>
-            Premium member
-          </Text>
-        </View>
-      </View>
-      <View style={{ marginTop: 20 }}>
-        <View style={styles.list}>
-          <Text style={styles.text}>Orders</Text>
-        </View>
-        <View style={styles.list}>
-          <Text style={styles.text}>Returns and refunds</Text>
-        </View>
-        <View style={styles.list}>
+      {setShow ? (
+        <>
+          <View style={styles.wrap}>
+            <Image
+              style={styles.image}
+              source={require("../../assets/thanhvinh.jpg")}
+            />
+            <View style={styles.account}>
+              <Text style={{ fontSize: 24, fontWeight: "400" }}>
+                Thành Vinh
+              </Text>
+              <Text style={{ fontSize: 16, fontWeight: "500" }}>
+                Premium member
+              </Text>
+            </View>
+          </View>
+          <View style={{ marginTop: 20 }}>
+            <View style={styles.list}>
+              <Text style={styles.text}>Orders</Text>
+            </View>
+            <View style={styles.list}>
+              <Text style={styles.text}>Returns and refunds</Text>
+            </View>
+            <View style={styles.list}>
+              <Text
+                style={styles.text}
+                navigation={navigation}
+                onPress={() => {
+                  navigation.navigate("AccountInfo");
+                }}>
+                Account infomation
+              </Text>
+            </View>
+            <View style={styles.list}>
+              <Text style={styles.text}>Security and setting</Text>
+            </View>
+            <View style={styles.list}>
+              <Text style={styles.text}>Log out</Text>
+            </View>
+          </View>
+        </>
+      ) : (
+        <>
           <Text
-            style={styles.text}
-            navigation={navigation}
             onPress={() => {
-              navigation.navigate("AccountInfo");
+              navigation.navigate("Login");
             }}>
-            Account infomation
+            Login
           </Text>
-        </View>
-        <View style={styles.list}>
-          <Text style={styles.text}>Security and setting</Text>
-        </View>
-        <View style={styles.list}>
-          <Text style={styles.text}>Help</Text>
-        </View>
-      </View>
+        </>
+      )}
     </View>
   );
 };

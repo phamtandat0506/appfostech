@@ -25,10 +25,6 @@ const Login = () => {
   const navigation = useNavigation();
   // const [token, setToken] = useState("");
 
-  const handleSkip = () => {};
-  const handleSubmit = async () => {
-    dispatch(login(Username, Password));
-  };
   useEffect(() => {
     if (auth.token) {
       navigation.navigate("Narbar");
@@ -36,6 +32,12 @@ const Login = () => {
       navigation.navigate("Login");
     }
   }, [auth.token]);
+  const handleSkip = () => {
+    navigation.navigate("Narbar");
+  };
+  const handleSubmit = () => {
+    dispatch(login(Username, Password));
+  };
 
   return (
     <View style={styles.wrap}>

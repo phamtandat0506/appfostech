@@ -17,9 +17,9 @@ const LastView = ({ navigation }) => {
           navigation={navigation}
         />
         <FlatProduct
-          source={require("../../../assets/iphone7.png")}
-          nameProduct="Iphone 7"
-          price="USD 43"
+          source={require("../../../assets/macbooke.png")}
+          nameProduct="Macbook air"
+          price="USD 1243"
           navigation={navigation}
         />
       </View>
@@ -31,6 +31,7 @@ const LastView = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#FDFEFF",
+    top: 5,
   },
   title: {
     fontSize: 24,

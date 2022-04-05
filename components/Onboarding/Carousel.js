@@ -29,7 +29,7 @@ const Carousel = ({ navigation }) => {
       <Onboarding
         NextButtonComponent={Next}
         DoneButtonComponent={Done}
-        onSkip={() => navigation.replace("Home")}
+        onSkip={() => navigation.navigate("Home")}
         onDone={() => navigation.navigate("Connexion")}
         pages={[
           {

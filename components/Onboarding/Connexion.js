@@ -1,11 +1,12 @@
 //import liraries
 import React, { Component } from "react";
 import { View, Text, StyleSheet, Pressable, Button, Image } from "react-native";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 // create a component
 const Connexion = ({ navigation }) => {
   const handleSkip = () => {
-    // setIsShow(true);
+    navigation.navigate("Narbar");
   };
   return (
     <View style={styles.wrap}>
@@ -32,11 +33,13 @@ const Connexion = ({ navigation }) => {
         </View>
         <View style={styles.buttonx}>
           <Pressable style={styles.buttonGg}>
+            <Ionicons name="logo-google" size={25}></Ionicons>
             <Text style={styles.textBtnGg}>Connect with Google</Text>
           </Pressable>
         </View>
         <View style={styles.buttonx}>
           <Pressable style={styles.buttonFb}>
+            <Ionicons name="logo-facebook" size={25}></Ionicons>
             <Text style={styles.textBtnFb}>Connect with Facebook</Text>
           </Pressable>
         </View>
@@ -102,7 +105,7 @@ const styles = StyleSheet.create({
   buttonGg: {
     backgroundColor: "#ffffff",
     height: 53,
-
+    flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
 
@@ -114,11 +117,12 @@ const styles = StyleSheet.create({
     lineHeight: 21.48,
     textAlign: "center",
     color: "#555555",
+    left: 10,
   },
   buttonFb: {
     backgroundColor: "#415A93",
     height: 53,
-
+    flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
 
@@ -130,6 +134,7 @@ const styles = StyleSheet.create({
     lineHeight: 21.48,
     textAlign: "center",
     color: "#ffffff",
+    left: 10,
   },
 });
 

@@ -153,16 +153,16 @@ const styles = StyleSheet.create({
   dot: {
     flexDirection: "row",
     position: "absolute",
-    bottom: 15,
+    bottom: 30,
     alignSelf: "center",
   },
   dotText: {
-    fontSize: 15,
+    fontSize: 14,
     color: "#f1f1f1",
     marginLeft: 3,
   },
   dotActiveText: {
-    fontSize: 15,
+    fontSize: 14,
     color: "#A7A9BE",
     marginLeft: 3,
   },
