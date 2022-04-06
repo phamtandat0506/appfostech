@@ -26,6 +26,10 @@ import Login from "../Onboarding/Login";
 import ListProduct from "../Home/ListProduct";
 import Categories from "../Home/Categories";
 import News from "../Home/News";
+import HangHoa from "../Home/HangHoa";
+import ThanhPham from "../Home/ThanhPham";
+import FavoriteProduct from "../Home/FavoriteProduct";
+import Details from "../Home/Details";
 
 // create a component
 const Stack = createNativeStackNavigator();
@@ -141,8 +145,52 @@ function HomeScreen() {
         }}
       />
       <Stack.Screen
+        name="HangHoa"
+        component={HangHoa}
+        options={{
+          headerTitleStyle: {
+            fontWeight: "bold",
+            fontSize: 32,
+          },
+          title: "",
+        }}
+      />
+      <Stack.Screen
+        name="ThanhPham"
+        component={ThanhPham}
+        options={{
+          headerTitleStyle: {
+            fontWeight: "bold",
+            fontSize: 32,
+          },
+          title: "",
+        }}
+      />
+      <Stack.Screen
         name="News"
         component={News}
+        options={{
+          headerTitleStyle: {
+            fontWeight: "bold",
+            fontSize: 32,
+          },
+          title: "",
+        }}
+      />
+      <Stack.Screen
+        name="FavoriteProduct"
+        component={FavoriteProduct}
+        options={{
+          headerTitleStyle: {
+            fontWeight: "bold",
+            fontSize: 32,
+          },
+          title: "",
+        }}
+      />
+      <Stack.Screen
+        name="Details"
+        component={Details}
         options={{
           headerTitleStyle: {
             fontWeight: "bold",

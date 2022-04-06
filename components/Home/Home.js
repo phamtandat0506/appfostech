@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import {
   StyleSheet,
@@ -11,6 +11,9 @@ import {
 } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { useNavigation } from "@react-navigation/native";
+import { useDispatch, useSelector } from "react-redux";
+import { getListProduct } from "../../Redux/actions/productAction";
+import CardProduct from "./CardProduct";
 
 const w = Dimensions.get("screen").width;
 const h = w * 0.6;
@@ -23,8 +26,12 @@ const images = [
 ];
 
 export default function Home() {
+  const dispatch = useDispatch();
+  const { products } = useSelector((state) => state);
   const [active, setActive] = useState("");
   const navigation = useNavigation();
+  // const image = [picture1, picture2, picture3];
+
   const handleScroll = (event) => {
     const slide = Math.ceil(
       event.nativeEvent.contentOffset.x /
@@ -34,6 +41,9 @@ export default function Home() {
       setActive(slide);
     }
   };
+  useEffect(() => {
+    dispatch(getListProduct());
+  }, [dispatch]);
 
   return (
     <View style={styles.container}>
@@ -78,7 +88,10 @@ export default function Home() {
         </View>
         <View style={styles.inFlex}>
           <View>
-            <Ionicons name="star-outline" style={styles.text}></Ionicons>
+            <Ionicons
+              name="star-outline"
+              style={styles.text}
+              onPress={() => navigation.navigate("FavoriteProduct")}></Ionicons>
           </View>
           <Text style={styles.title}>Favorites</Text>
         </View>
@@ -105,38 +118,13 @@ export default function Home() {
           Sales
         </Text>
         <View style={styles.wapper}>
-          <View style={styles.product}>
-            <Image
-              style={styles.imgProduct}
-              source={require("../../assets/smartphone.png")}
-            />
-            <Text
-              style={{
-                color: "#0A1034",
-                fontSize: 18,
-                fontWeight: "600",
-                textAlign: "center",
-                top: 5,
-              }}>
-              Smartphones
-            </Text>
-          </View>
-          <View style={styles.product}>
-            <Image
-              style={styles.imgProduct}
-              source={require("../../assets/monitor.png")}
-            />
-            <Text
-              style={{
-                color: "#0A1034",
-                fontSize: 18,
-                fontWeight: "600",
-                textAlign: "center",
-                top: 5,
-              }}>
-              Monitor
-            </Text>
-          </View>
+          <ScrollView horizontal>
+            {products.product
+              .filter((items) => items.promotion.length > 0)
+              .map((item) => (
+                <CardProduct key={item._id} item={item} />
+              ))}
+          </ScrollView>
         </View>
       </View>
     </View>

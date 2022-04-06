@@ -8,7 +8,7 @@ export const NEWS_TYPE = {
 export const getNewsData = () => async (dispatch) => {
   try {
     dispatch({ type: NEWS_TYPE.LOADING, payload: { loading: true } });
-    const res = await getData();
+    const res = await getData("news");
 
     dispatch({ type: NEWS_TYPE.NEWS, payload: res });
   } catch (error) {

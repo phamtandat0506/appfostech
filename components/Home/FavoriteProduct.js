@@ -6,7 +6,7 @@ import { URL } from "../../utils/fetchApi";
 import CardProduct from "./CardProduct";
 
 // create a component
-const ListProduct = () => {
+const FavoriteProduct = () => {
   const { products } = useSelector((state) => state);
   return (
     <View style={styles.container}>
@@ -18,7 +18,7 @@ const ListProduct = () => {
           top: 0,
           margin: 10,
         }}>
-        Tất cả sản phẩm
+        Favorite
       </Text>
       <ScrollView>
         <View
@@ -27,9 +27,11 @@ const ListProduct = () => {
             flexWrap: "wrap",
             justifyContent: "space-around",
           }}>
-          {products.product.map((item) => (
-            <CardProduct key={item._id} item={item} />
-          ))}
+          {products.product
+            .filter((items) => items.bestseller === true || items.hot === true)
+            .map((item) => (
+              <CardProduct key={item._id} item={item} />
+            ))}
         </View>
       </ScrollView>
     </View>
@@ -59,4 +61,4 @@ const styles = StyleSheet.create({
 });
 
 //make this component available to the app
-export default ListProduct;
+export default FavoriteProduct;

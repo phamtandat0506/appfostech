@@ -1,7 +1,7 @@
 //import liraries
 import { useNavigation } from "@react-navigation/native";
 import React, { Component } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, ScrollView, Image } from "react-native";
 
 // create a component
 const Categories = () => {
@@ -16,40 +16,46 @@ const Categories = () => {
           top: 10,
           padding: 10,
         }}>
-        Categories
+        Danh mục
       </Text>
-      <View style={styles.wapper}>
-        <View style={styles.categories}>
-          <Text style={styles.textCa}>All</Text>
+      <ScrollView>
+        <View style={styles.wapper}>
+          <View style={styles.categories}>
+            <Text
+              style={styles.textCa}
+              onPress={() => navigation.navigate("ListProduct")}>
+              Tất cả sản phẩm
+            </Text>
+          </View>
+          <View style={styles.categories}>
+            <Text
+              style={styles.textCa}
+              onPress={() => {
+                navigation.navigate("News");
+              }}>
+              Tin tức
+            </Text>
+          </View>
+          <View style={styles.categories}>
+            <Text
+              style={styles.textCa}
+              onPress={() => {
+                navigation.navigate("HangHoa");
+              }}>
+              Hàng hóa
+            </Text>
+          </View>
+          <View style={styles.categories}>
+            <Text
+              style={styles.textCa}
+              onPress={() => {
+                navigation.navigate("ThanhPham");
+              }}>
+              Thành phẩm
+            </Text>
+          </View>
         </View>
-        <View style={styles.categories}>
-          <Text style={styles.textCa}>Table</Text>
-        </View>
-        <View style={styles.categories}>
-          <Text
-            style={styles.textCa}
-            onPress={() => {
-              navigation.navigate("ListProduct");
-            }}>
-            Laptop
-          </Text>
-        </View>
-        <View style={styles.categories}>
-          <Text style={styles.textCa}>Smartphones</Text>
-        </View>
-        <View style={styles.categories}>
-          <Text
-            style={styles.textCa}
-            onPress={() => {
-              navigation.navigate("News");
-            }}>
-            News
-          </Text>
-        </View>
-        <View style={styles.categories}>
-          <Text style={styles.textCa}>Speakers</Text>
-        </View>
-      </View>
+      </ScrollView>
     </View>
   );
 };

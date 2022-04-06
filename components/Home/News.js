@@ -4,6 +4,7 @@ import { View, Text, StyleSheet, Image } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { getNewsData } from "../../Redux/actions/newsAction";
 import { WebView } from "react-native-webview";
+import { URL } from "../../utils/fetchApi";
 
 // create a component
 const News = () => {
@@ -43,11 +44,19 @@ const News = () => {
           <Image
             style={styles.imageNews}
             source={{
-              uri: `https://api.fostech.vn/`.concat(`${item.picture}`),
+              uri: `${URL}/`.concat(`${item.picture}`),
             }}
           />
           <View style={styles.body}>
-            <Text>{item.title}</Text>
+            <Text
+              numberOfLines={2}
+              style={{
+                fontSize: 14,
+                fontWeight: "600",
+                flexShrink: 1,
+              }}>
+              {item.title}
+            </Text>
             <WebView
               originWhitelist={["*"]}
               source={{ html: `${item.content}` }}
@@ -69,17 +78,20 @@ const styles = StyleSheet.create({
     margin: 10,
     color: "#0d2cd9",
   },
+
   menuNews: {
     flexDirection: "row",
 
     alignSelf: "center",
   },
+
   textMenu: {
     margin: 10,
   },
   Card: {
     flexDirection: "row",
-    padding: 20,
+    justifyContent: "space-between",
+    padding: 10,
   },
 
   imageNews: {
@@ -90,6 +102,7 @@ const styles = StyleSheet.create({
   },
   body: {
     margin: 20,
+    width: 260,
   },
 });
 

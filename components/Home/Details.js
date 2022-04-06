@@ -11,25 +11,36 @@ import {
 } from "react-native";
 import { BlurView } from "expo-blur";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { useSelector } from "react-redux";
+import { URL } from "../../utils/fetchApi";
+import HTMLView from "react-native-htmlview";
 
 // create a component
-const images = [
-  "https://cdn.tgdd.vn/Products/Images/42/230521/Slider/vi-vn-iphone-13-pro-slider-tong-quan.jpg",
-  "https://cdn.tgdd.vn/Products/Images/42/230521/Slider/vi-vn-iphone-13-pro-slider-hieu-nang.jpg",
-  "https://cdn.tgdd.vn/Products/Images/42/230521/Slider/vi-vn-iphone-13-pro-slider-camera.jpg",
-  "https://cdn.tgdd.vn/Products/Images/42/230521/Slider/iphone-13-pro-slider-oled-1020x570-1.jpg",
-  "https://cdn.tgdd.vn/Products/Images/42/230521/Slider/iphone-13-pro-slider-120hz-1020x570.jpg",
-  "https://cdn.tgdd.vn/Products/Images/42/230521/Slider/iphone-13-pro-slider-promotion-1020x570.jpg",
-  "https://cdn.tgdd.vn/Products/Images/42/230521/Slider/iphone-13-pro-slider-ios15-1020x570.jpg",
-];
+// const images = [
+//   "https://cdn.tgdd.vn/Products/Images/42/230521/Slider/vi-vn-iphone-13-pro-slider-tong-quan.jpg",
+//   "https://cdn.tgdd.vn/Products/Images/42/230521/Slider/vi-vn-iphone-13-pro-slider-hieu-nang.jpg",
+//   "https://cdn.tgdd.vn/Products/Images/42/230521/Slider/vi-vn-iphone-13-pro-slider-camera.jpg",
+//   "https://cdn.tgdd.vn/Products/Images/42/230521/Slider/iphone-13-pro-slider-oled-1020x570-1.jpg",
+//   "https://cdn.tgdd.vn/Products/Images/42/230521/Slider/iphone-13-pro-slider-120hz-1020x570.jpg",
+//   "https://cdn.tgdd.vn/Products/Images/42/230521/Slider/iphone-13-pro-slider-promotion-1020x570.jpg",
+//   "https://cdn.tgdd.vn/Products/Images/42/230521/Slider/iphone-13-pro-slider-ios15-1020x570.jpg",
+// ];
 
 const { width } = Dimensions.get("window");
 const height = (width * 100) / 120;
 
-const ProductDetail = ({ navigation }) => {
+const Details = ({ navigation }) => {
+  const { products } = useSelector((state) => state);
+
   const [state, setState] = useState({
     active: 0,
   });
+
+  const picture = `${URL}/`.concat(`${products.productDe.picture}`);
+  const picture2 = `${URL}/`.concat(`${products.productDe.picture2}`);
+
+  const images = [picture, picture2];
+
   const [isAdd, setIsAdd] = useState(false);
   const handleChange = ({ nativeEvent, navigation }) => {
     const slide = Math.ceil(
@@ -46,10 +57,11 @@ const ProductDetail = ({ navigation }) => {
     setIsAdd(false);
     navigation.navigate("Home");
   };
+
   return (
     <View style={styles.container}>
       <View style={StyleSheet.absoluteFill}>
-        <Text style={styles.navigationTitle}>Iphone 11 Pro</Text>
+        <Text style={styles.navigationTitle}>{products.productDe.ten_vt}</Text>
         <ScrollView>
           <View style={{ width, height }}>
             <ScrollView
@@ -78,31 +90,18 @@ const ProductDetail = ({ navigation }) => {
               ))}
             </View>
           </View>
-          <View>
-            <Text style={styles.title}>Color</Text>
-            <View style={styles.colorPro}>
-              <Text style={{ color: "#A7A9BE", fontSize: 35, marginLeft: 10 }}>
-                ⬤
-              </Text>
-              <Text style={{ color: "#f0f0f0", fontSize: 35, marginLeft: 10 }}>
-                ⬤
-              </Text>
-              <Text style={{ color: "#020303", fontSize: 35, marginLeft: 10 }}>
-                ⬤
-              </Text>
-              <Text style={{ color: "#ba7db6", fontSize: 35, marginLeft: 10 }}>
-                ⬤
-              </Text>
-            </View>
+          <View style={{ marginTop: 10, flexDirection: "row" }}>
+            <Text style={styles.title}>Giá:</Text>
+            <Text style={styles.price}>
+              {products.productDe.gia_ban_le} vnd{" "}
+            </Text>
           </View>
-          <View>
-            <Text style={styles.title}>Capacity</Text>
-            <View style={styles.capPro}>
-              <Text style={styles.capacityProduct}>64gb</Text>
-              <Text style={styles.capacityProduct}>128gb</Text>
-              <Text style={styles.capacityProduct}>256gb</Text>
-            </View>
-          </View>
+
+          <HTMLView
+            style={{ padding: 5 }}
+            value={products.productDe.mieu_ta_chi_tiet}
+            stylesheet={styles}
+          />
           <Pressable style={styles.button} onPress={handleAddcart}>
             <Text style={styles.textBtn}>Add to cart</Text>
           </Pressable>
@@ -143,7 +142,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "700",
     color: "#0A1034",
-    marginTop: 20,
+    margin: 20,
     marginLeft: 16,
     lineHeight: 29,
   },
@@ -154,7 +153,7 @@ const styles = StyleSheet.create({
   image: {
     width,
     height,
-    resizeMode: "contain",
+    resizeMode: "cover",
   },
   dot: {
     flexDirection: "row",
@@ -173,31 +172,21 @@ const styles = StyleSheet.create({
     marginLeft: 3,
   },
   title: {
-    fontSize: 18,
+    fontSize: 16,
     marginLeft: 10,
     fontWeight: "600",
+    paddingTop: 10,
   },
-  colorPro: {
-    textAlign: "center",
-    flexDirection: "row",
-    justifyContent: "center",
-    marginBottom: 20,
-  },
-  capPro: {
-    textAlign: "center",
-    flexDirection: "row",
-    justifyContent: "center",
-  },
-  capacityProduct: {
-    fontSize: 16,
-    fontWeight: "400",
-    lineHeight: 19.09,
-    marginLeft: 15,
+  price: {
+    color: "#F50206",
+    padding: 6,
+    fontWeight: "700",
+    fontSize: 20,
   },
   button: {
     backgroundColor: "#18194E",
     height: 53,
-    marginTop: 40,
+    marginTop: 20,
     marginLeft: 10,
     marginRight: 10,
     alignItems: "center",
@@ -225,4 +214,4 @@ const styles = StyleSheet.create({
 });
 
 //make this component available to the app
-export default ProductDetail;
+export default Details;

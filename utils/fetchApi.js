@@ -1,4 +1,4 @@
-export const URL = "https://api.fostech.vn";
+export const URL = `https://api.fostech.vn`;
 import axios from "axios";
 
 export default function getLogin(endpoint, method = "GET", data, headers) {
@@ -18,9 +18,18 @@ export default function getLogin(endpoint, method = "GET", data, headers) {
     console.log(error.config);
   });
 }
-export const getData = async () => {
+export const getData = async (url) => {
   const res = await axios.get(
-    `https://api.fostech.vn/api/60939744ac969b4078488026/news?access_token=e8ba858476afc6a0f6c1d3d686e275a8`
+    `${URL}/api/60939744ac969b4078488026/${url}?access_token=e8ba858476afc6a0f6c1d3d686e275a8`
   );
+
+  return res;
+};
+
+export const getItem = async (url, _id) => {
+  const res = await axios.get(
+    `${URL}/api/60939744ac969b4078488026/${url}/${_id}?access_token=e8ba858476afc6a0f6c1d3d686e275a8`
+  );
+
   return res;
 };
