@@ -5,8 +5,10 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 
 // create a component
 const Connexion = ({ navigation }) => {
+  
   const handleSkip = () => {
     navigation.navigate("Narbar");
+    
   };
   return (
     <View style={styles.wrap}>

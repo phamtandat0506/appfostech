@@ -1,6 +1,6 @@
 //import liraries
 import * as React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -9,9 +9,11 @@ import {
   Pressable,
   StatusBar,
   TextInput,
+  Touchable,
+  TouchableOpacity,
 } from "react-native";
 
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "../Home/Home";
@@ -30,6 +32,8 @@ import HangHoa from "../Home/HangHoa";
 import ThanhPham from "../Home/ThanhPham";
 import FavoriteProduct from "../Home/FavoriteProduct";
 import Details from "../Home/Details";
+import Cart from "../Cart/Cart";
+import StatusCheckout from "../Cart/StatusCheckout";
 
 // create a component
 const Stack = createNativeStackNavigator();
@@ -102,6 +106,48 @@ function AccountScreen() {
             fontWeight: "bold",
             fontSize: 32,
           },
+          title: "",
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
+function CartScreen() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Cart"
+        component={Cart}
+        options={{
+          headerTitleStyle: {
+            fontWeight: "bold",
+            fontSize: 32,
+          },
+
+          title: "Checkout",
+        }}
+      />
+      <Stack.Screen
+        name="Status"
+        component={StatusCheckout}
+        options={{
+          headerTitleStyle: {
+            fontWeight: "bold",
+            fontSize: 32,
+          },
+
+          title: "Tracking",
+        }}
+      />
+      <Stack.Screen
+        name="StatusCheckout"
+        component={StatusCheckout}
+        options={{
+          headerTitleStyle: {
+            fontWeight: "bold",
+            fontSize: 32,
+          },
+          headerShown: false,
           title: "",
         }}
       />
@@ -211,10 +257,13 @@ const Narbar = () => {
           if (route.name === "HomeScreen") {
             iconName = focused ? "ios-home" : "ios-home-outline";
           } else if (route.name === "Search") {
-            iconName = focused ? "ios-search" : "ios-search";
+            iconName = focused ? "ios-search" : "ios-search-outline";
           }
           if (route.name === "AccountScreen") {
-            iconName = focused ? "ios-person-outline" : "ios-person-outline";
+            iconName = focused ? "ios-person" : "ios-person-outline";
+          }
+          if (route.name === "CartScreen") {
+            iconName = focused ? "ios-cart" : "ios-cart-outline";
           }
           return <Ionicons name={iconName} size={25} color={color} />;
         },
@@ -224,6 +273,14 @@ const Narbar = () => {
       <Tab.Screen
         name="HomeScreen"
         component={HomeScreen}
+        options={{
+          headerShown: false,
+          title: "",
+        }}
+      />
+      <Tab.Screen
+        component={CartScreen}
+        name="CartScreen"
         options={{
           headerShown: false,
           title: "",

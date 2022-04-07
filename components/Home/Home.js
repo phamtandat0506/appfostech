@@ -27,7 +27,7 @@ const images = [
 
 export default function Home() {
   const dispatch = useDispatch();
-  const { products } = useSelector((state) => state);
+  const { products, auth } = useSelector((state) => state);
   const [active, setActive] = useState("");
   const navigation = useNavigation();
   // const image = [picture1, picture2, picture3];
@@ -43,7 +43,7 @@ export default function Home() {
   };
   useEffect(() => {
     dispatch(getListProduct());
-  }, [dispatch]);
+  }, [dispatch, auth.token]);
 
   return (
     <View style={styles.container}>

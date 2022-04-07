@@ -1,7 +1,11 @@
-import getLogin from "../../utils/fetchApi";
+import getLogin, { getDataAPI } from "../../utils/fetchApi";
 import { GLOBALTYPES } from "./GlobalTypes";
 import { Buffer } from "buffer";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+
+export const PROFILE_TYPES = {
+  GET_PROFILE: "GET_PROFILE",
+};
 
 export const login = (username, password) => {
   var credentials = Buffer.from(username + ":" + password).toString("base64");
@@ -12,27 +16,52 @@ export const login = (username, password) => {
       const res = await getLogin(`auth/local`, "GET", "", {
         Authorization: basicAuth,
       });
-      console.log(res);
       if (res.data) {
+        const jsonToken = res.data.token;
+        await AsyncStorage.setItem("@token_key", jsonToken);
+
         dispatch({
           type: GLOBALTYPES.AUTH,
-          payload: res.data,
+          payload: jsonToken,
         });
-        try {
-          const jsonToken = JSON.stringify(res.data.token);
-          await AsyncStorage.setItem("@token_key", jsonToken);
-        } catch (error) {
-          console.log(error);
-        }
-      } else {
+
+        //get id_app
+        const id_app = await getDataAPI("app", jsonToken);
         dispatch({
-          type: GLOBALTYPES.AUTH,
-          payload: res,
+          type: GLOBALTYPES.ID_APP,
+          payload: id_app.data[0],
+        });
+
+        //get properties in profile
+        const profile = await getDataAPI("profile", jsonToken);
+        dispatch({
+          type: PROFILE_TYPES.GET_PROFILE,
+          payload: profile.data,
         });
       }
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      console.log(error);
     }
   };
   return add;
+};
+
+export const getInfo = (token) => async (dispatch) => {
+  try {
+    //get id_app
+    const id_app = await getDataAPI("app", token);
+    dispatch({
+      type: GLOBALTYPES.ID_APP,
+      payload: id_app.data[0],
+    });
+
+    //get properties in profile
+    const profile = await getDataAPI("profile", token);
+    dispatch({
+      type: PROFILE_TYPES.GET_PROFILE,
+      payload: profile.data,
+    });
+  } catch (error) {
+    console.log(error);
+  }
 };

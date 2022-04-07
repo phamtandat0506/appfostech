@@ -11,30 +11,21 @@ import {
 } from "react-native";
 import { BlurView } from "expo-blur";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { URL } from "../../utils/fetchApi";
 import HTMLView from "react-native-htmlview";
-
-// create a component
-// const images = [
-//   "https://cdn.tgdd.vn/Products/Images/42/230521/Slider/vi-vn-iphone-13-pro-slider-tong-quan.jpg",
-//   "https://cdn.tgdd.vn/Products/Images/42/230521/Slider/vi-vn-iphone-13-pro-slider-hieu-nang.jpg",
-//   "https://cdn.tgdd.vn/Products/Images/42/230521/Slider/vi-vn-iphone-13-pro-slider-camera.jpg",
-//   "https://cdn.tgdd.vn/Products/Images/42/230521/Slider/iphone-13-pro-slider-oled-1020x570-1.jpg",
-//   "https://cdn.tgdd.vn/Products/Images/42/230521/Slider/iphone-13-pro-slider-120hz-1020x570.jpg",
-//   "https://cdn.tgdd.vn/Products/Images/42/230521/Slider/iphone-13-pro-slider-promotion-1020x570.jpg",
-//   "https://cdn.tgdd.vn/Products/Images/42/230521/Slider/iphone-13-pro-slider-ios15-1020x570.jpg",
-// ];
+import { useNavigation } from "@react-navigation/native";
 
 const { width } = Dimensions.get("window");
 const height = (width * 100) / 120;
 
-const Details = ({ navigation }) => {
-  const { products } = useSelector((state) => state);
+const Details = () => {
+  const { products, auth } = useSelector((state) => state);
 
   const [state, setState] = useState({
     active: 0,
   });
+  const navigation = useNavigation();
 
   const picture = `${URL}/`.concat(`${products.productDe.picture}`);
   const picture2 = `${URL}/`.concat(`${products.productDe.picture2}`);
@@ -42,7 +33,7 @@ const Details = ({ navigation }) => {
   const images = [picture, picture2];
 
   const [isAdd, setIsAdd] = useState(false);
-  const handleChange = ({ nativeEvent, navigation }) => {
+  const handleChange = ({ nativeEvent }) => {
     const slide = Math.ceil(
       nativeEvent.contentOffset.x / nativeEvent.layoutMeasurement.width
     );
@@ -50,8 +41,15 @@ const Details = ({ navigation }) => {
       setState({ active: slide });
     }
   };
-  const handleAddcart = () => {
-    setIsAdd(true);
+  const dispatch = useDispatch();
+  const handleAddcart = async () => {
+    // console.log(auth.token);
+    if (auth.token !== null) {
+      setIsAdd(true);
+      //dispatch(addCart(auth, products.productDe));
+    } else {
+      navigation.navigate("Connexion");
+    }
   };
   const handleBackShop = () => {
     setIsAdd(false);
@@ -93,7 +91,7 @@ const Details = ({ navigation }) => {
           <View style={{ marginTop: 10, flexDirection: "row" }}>
             <Text style={styles.title}>Giá:</Text>
             <Text style={styles.price}>
-              {products.productDe.gia_ban_le} vnd{" "}
+              {products.productDe.gia_ban_le} vnd
             </Text>
           </View>
 
@@ -108,7 +106,7 @@ const Details = ({ navigation }) => {
         </ScrollView>
       </View>
       {isAdd && (
-        <View>
+        <View style={{ flex: 1, justifyContent: "center" }}>
           <BlurView intensity={100}>
             <View style={styles.Added}>
               <Ionicons

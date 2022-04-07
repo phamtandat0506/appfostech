@@ -10,14 +10,36 @@ import {
   Image,
   Pressable,
 } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { GLOBALTYPES } from "../../Redux/actions/GlobalTypes";
+import { getInfo } from "../../Redux/actions/authAction";
 
 // create a component
 const LetStart = () => {
+  const dispatch = useDispatch();
   const navigation = useNavigation();
-  const handleLetStart = () => {
-    navigation.navigate("Carousel");
+  const { auth } = useSelector((state) => state);
+  const handleLetStart = async () => {
+    const token = await AsyncStorage.getItem("@token_key");
+    dispatch({
+      type: GLOBALTYPES.AUTH,
+      payload: token,
+    });
+    dispatch(getInfo(token));
+    if (token) {
+      navigation.navigate("Narbar");
+    } else {
+      navigation.navigate("Carousel");
+    }
   };
-  const handleSkip = () => {
+  const handleSkip = async () => {
+    const token = await AsyncStorage.getItem("@token_key");
+    dispatch({
+      type: GLOBALTYPES.AUTH,
+      payload: token,
+    });
+    dispatch(getInfo(token));
     navigation.navigate("Narbar");
   };
   return (

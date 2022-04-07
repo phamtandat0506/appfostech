@@ -8,9 +8,11 @@ import {
   Pressable,
   TextInput,
 } from "react-native";
+import { useSelector } from "react-redux";
 
 // create a component
 const ChangeEmail = () => {
+  const { auth } = useSelector((state) => state);
   return (
     <View style={styles.container}>
       <View style={styles.wrap}>
@@ -26,7 +28,7 @@ const ChangeEmail = () => {
               lineHeight: 19,
               fontWeight: "500",
             }}>
-            VinhNguyen@gmail.com
+            {auth.profile.email}
           </Text>
         </View>
 

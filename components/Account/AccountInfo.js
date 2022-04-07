@@ -1,73 +1,86 @@
 //import liraries
+import { useNavigation } from "@react-navigation/native";
 import React, { Component } from "react";
-import { View, Text, StyleSheet, StatusBar, Pressable } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  StatusBar,
+  Pressable,
+  ScrollView,
+} from "react-native";
+import { useSelector } from "react-redux";
 
 // create a component
-const AccountInfo = ({ navigation }) => {
+const AccountInfo = () => {
+  const navigation = useNavigation();
+  const { auth } = useSelector((state) => state);
+
   return (
     <View style={styles.container}>
       <View style={styles.wrap}>
         <Text style={styles.navigationTitle}> Account infomation</Text>
-
-        <View style={styles.card}>
-          <View style={styles.username}>
-            <Text style={styles.titleusername}>Username</Text>
-            <Text style={styles.textUsername}>Thành Vinh</Text>
+        <ScrollView>
+          <View style={styles.card}>
+            <View style={styles.username}>
+              <Text style={styles.titleusername}>Username</Text>
+              <Text style={styles.textUsername}>{auth.profile.name}</Text>
+            </View>
+            <View style={styles.buttonx}>
+              <Pressable style={styles.button}>
+                <Text style={styles.textBtn}>Change</Text>
+              </Pressable>
+            </View>
           </View>
-          <View style={styles.buttonx}>
-            <Pressable style={styles.button}>
-              <Text style={styles.textBtn}>Change</Text>
-            </Pressable>
+          <View style={styles.card}>
+            <View style={styles.username}>
+              <Text style={styles.titleusername}>Email</Text>
+              <Text style={styles.textUsername}>{auth.profile.email}</Text>
+            </View>
+            <View style={styles.buttonx}>
+              <Pressable
+                style={styles.button}
+                onPress={() => {
+                  navigation.navigate("ChangeEmail");
+                }}>
+                <Text style={styles.textBtn}>Change</Text>
+              </Pressable>
+            </View>
           </View>
-        </View>
-        <View style={styles.card}>
-          <View style={styles.username}>
-            <Text style={styles.titleusername}>Email</Text>
-            <Text style={styles.textUsername}>VinhNguyen@gmail.com</Text>
+          <View style={styles.card}>
+            <View style={styles.username}>
+              <Text style={styles.titleusername}>Phone number</Text>
+              <Text style={styles.textUsername}>+ 33 6 61 39 54 78</Text>
+            </View>
+            <View style={styles.buttonx}>
+              <Pressable style={styles.button}>
+                <Text style={styles.textBtn}>Change</Text>
+              </Pressable>
+            </View>
           </View>
-          <View style={styles.buttonx}>
-            <Pressable
-              style={styles.button}
-              onPress={() => {
-                navigation.navigate("ChangeEmail");
-              }}>
-              <Text style={styles.textBtn}>Change</Text>
-            </Pressable>
+          <View style={styles.card}>
+            <View style={styles.username}>
+              <Text style={styles.titleusername}>Password</Text>
+              <Text style={styles.textUsername}>****************</Text>
+            </View>
+            <View style={styles.buttonx}>
+              <Pressable style={styles.button}>
+                <Text style={styles.textBtn}>Change</Text>
+              </Pressable>
+            </View>
           </View>
-        </View>
-        <View style={styles.card}>
-          <View style={styles.username}>
-            <Text style={styles.titleusername}>Phone number</Text>
-            <Text style={styles.textUsername}>+ 33 6 61 39 54 78</Text>
+          <View style={styles.card}>
+            <View style={styles.username}>
+              <Text style={styles.titleusername}>Account type</Text>
+              <Text style={styles.textUsername}>Premium</Text>
+            </View>
+            <View style={styles.buttonx}>
+              <Pressable style={styles.button}>
+                <Text style={styles.textBtn}>Change</Text>
+              </Pressable>
+            </View>
           </View>
-          <View style={styles.buttonx}>
-            <Pressable style={styles.button}>
-              <Text style={styles.textBtn}>Change</Text>
-            </Pressable>
-          </View>
-        </View>
-        <View style={styles.card}>
-          <View style={styles.username}>
-            <Text style={styles.titleusername}>Password</Text>
-            <Text style={styles.textUsername}>****************</Text>
-          </View>
-          <View style={styles.buttonx}>
-            <Pressable style={styles.button}>
-              <Text style={styles.textBtn}>Change</Text>
-            </Pressable>
-          </View>
-        </View>
-        <View style={styles.card}>
-          <View style={styles.username}>
-            <Text style={styles.titleusername}>Account type</Text>
-            <Text style={styles.textUsername}>Premium</Text>
-          </View>
-          <View style={styles.buttonx}>
-            <Pressable style={styles.button}>
-              <Text style={styles.textBtn}>Change</Text>
-            </Pressable>
-          </View>
-        </View>
+        </ScrollView>
       </View>
     </View>
   );
@@ -78,12 +91,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#FDFEFF",
+    justifyContent: "center",
   },
+
   navigationTitle: {
     fontSize: 32,
     fontWeight: "700",
     color: "#0A1034",
-    marginBottom: 32,
+    marginBottom: 10,
     marginTop: 56 - (StatusBar.currentHeight || 20) - 20,
   },
 
