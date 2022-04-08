@@ -12,7 +12,6 @@ import {
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllItemCart } from "../../Redux/actions/cartAction";
-import { URL } from "../../utils/fetchApi";
 import ItemCart from "./ItemCart";
 
 // create a component
@@ -21,6 +20,7 @@ const Cart = () => {
 
   const { auth, cart } = useSelector((state) => state);
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (auth.token !== null) {
@@ -35,9 +35,14 @@ const Cart = () => {
     <View style={styles.container}>
       {auth.token !== null ? (
         <ScrollView horizontal>
-          {cart.cart.map((item) => {
+          {cart.getCart.map((item) => {
             return item.details.map((product) => (
-              <ItemCart key={item._id} product={product} item={item} />
+              <ItemCart
+                key={item._id}
+                product={product}
+                item={item}
+                setLoading={setLoading}
+              />
             ));
           })}
         </ScrollView>

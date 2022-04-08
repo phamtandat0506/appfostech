@@ -1,8 +1,10 @@
 import { CART_TYPES } from "../actions/cartAction";
+import { DeleteData } from "../actions/GlobalTypes";
 
 const initialState = {
   cart: [],
   loading: false,
+  getCart: [],
 };
 
 const cartReducer = (state = initialState, action) => {
@@ -21,7 +23,13 @@ const cartReducer = (state = initialState, action) => {
     case CART_TYPES.GET_ALL_ITEM:
       return {
         ...state,
-        cart: action.payload,
+        getCart: action.payload,
+        loading: false,
+      };
+    case CART_TYPES.DELETE_ITEM:
+      return {
+        ...state,
+        getCart: DeleteData(state.getCart, action.payload._id),
         loading: false,
       };
     default:

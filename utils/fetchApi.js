@@ -48,6 +48,12 @@ export const postDataAPI = async (url, post, id_app, token) => {
   );
   return res;
 };
+export const deleteDataAPI = async (url, _id, id_app, token) => {
+  const res = await axios.delete(
+    `${URL}/api/${id_app}/${url}/${_id}?access_token=${token}`
+  );
+  return res;
+};
 
 export const getAllCart = async (url, id_app, token) => {
   const res = await axios.get(

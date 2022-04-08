@@ -1,14 +1,27 @@
 //import liraries
-import React, { Component } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
-import { useDispatch } from "react-redux";
+import React, { Component, useEffect, useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  ActivityIndicator,
+} from "react-native";
+import { useDispatch, useSelector } from "react-redux";
 import { getItemProduct } from "../../Redux/actions/productAction";
 import { URL } from "../../utils/fetchApi";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { useNavigation } from "@react-navigation/native";
+import {
+  getAllItemCart,
+  RemoveItemInCart,
+} from "../../Redux/actions/cartAction";
 
 // create a component
-const ItemCart = ({ product, item }) => {
+const ItemCart = ({ product, item, setLoading }) => {
+  const { auth, cart } = useSelector((state) => state);
+
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
@@ -17,9 +30,17 @@ const ItemCart = ({ product, item }) => {
     navigation.navigate("Details");
   };
 
+  // useEffect(() => {
+  //   dispatch(getAllItemCart(auth));
+  // }, [cart.getCart]);
+
   const deleteCart = () => {
-    console.log(item._id);
+    setLoading(cart.loading);
+    dispatch(RemoveItemInCart(auth, item, cart.getCart));
+    dispatch(getAllItemCart(auth));
+    navigation.navigate("Cart");
   };
+
   return (
     <View
       key={item._id}

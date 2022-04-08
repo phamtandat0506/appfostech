@@ -15,7 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { URL } from "../../utils/fetchApi";
 import HTMLView from "react-native-htmlview";
 import { useNavigation } from "@react-navigation/native";
-import { addCart } from "../../Redux/actions/cartAction";
+import { addCart, getAllItemCart } from "../../Redux/actions/cartAction";
 
 const { width } = Dimensions.get("window");
 const height = (width * 100) / 120;
@@ -47,7 +47,6 @@ const Details = () => {
   const handleAddcart = async () => {
     if (auth.token !== null) {
       dispatch(addCart(auth, products.productDe));
-
       setIsAdd(true);
     } else {
       navigation.navigate("Connexion");
@@ -56,6 +55,7 @@ const Details = () => {
 
   const handleBackShop = () => {
     setIsAdd(false);
+    dispatch(getAllItemCart(auth));
     navigation.navigate("Home");
   };
 
