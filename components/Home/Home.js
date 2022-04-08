@@ -14,6 +14,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { getListProduct } from "../../Redux/actions/productAction";
 import CardProduct from "./CardProduct";
+import { getAllItemCart } from "../../Redux/actions/cartAction";
 
 const w = Dimensions.get("screen").width;
 const h = w * 0.6;

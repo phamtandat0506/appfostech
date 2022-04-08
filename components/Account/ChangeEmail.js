@@ -91,11 +91,8 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: "#18194E",
     height: 53,
-
     alignItems: "center",
     justifyContent: "center",
-
-    minWidth: 400,
   },
   textBtn: {
     fontWeight: "600",

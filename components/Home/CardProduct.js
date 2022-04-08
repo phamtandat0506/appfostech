@@ -15,6 +15,7 @@ const CardProduct = ({ item }) => {
 
   const handleDetails = () => {
     dispatch(getItemProduct(item._id));
+    console.log(item._id);
     navigation.navigate("Details");
   };
 

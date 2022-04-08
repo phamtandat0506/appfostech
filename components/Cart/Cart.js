@@ -1,27 +1,46 @@
 //import liraries
 import { useNavigation } from "@react-navigation/native";
 import React, { Component, useEffect, useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-
-import { useSelector } from "react-redux";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+  Image,
+} from "react-native";
+import Ionicons from "react-native-vector-icons/Ionicons";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllItemCart } from "../../Redux/actions/cartAction";
+import { URL } from "../../utils/fetchApi";
+import ItemCart from "./ItemCart";
 
 // create a component
 const Cart = () => {
   const navigation = useNavigation();
 
-  const { auth } = useSelector((state) => state);
+  const { auth, cart } = useSelector((state) => state);
+  const dispatch = useDispatch();
+
   useEffect(() => {
     if (auth.token !== null) {
+      dispatch(getAllItemCart(auth));
       navigation.navigate("Cart");
     } else {
       navigation.navigate("Connexion");
     }
-  }, [auth.token]);
+  }, [auth.token, dispatch]);
 
   return (
     <View style={styles.container}>
       {auth.token !== null ? (
-        <Text>Cart</Text>
+        <ScrollView horizontal>
+          {cart.cart.map((item) => {
+            return item.details.map((product) => (
+              <ItemCart key={item._id} product={product} item={item} />
+            ));
+          })}
+        </ScrollView>
       ) : (
         <>
           <TouchableOpacity

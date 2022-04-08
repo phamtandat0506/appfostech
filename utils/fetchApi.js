@@ -43,15 +43,15 @@ export const getDataAPI = async (url, token) => {
 
 export const postDataAPI = async (url, post, id_app, token) => {
   const res = await axios.post(
-    `${URL}/api/${id_app}/${url}access_token=${token}`,
+    `${URL}/api/${id_app}/${url}?access_token=${token}`,
     post
   );
   return res;
 };
 
-export const getAllItemCart = async (url, id_app, token) => {
-  const res = await axios.post(
-    `${URL}/api/${id_app}/${url}access_token=${token}`
+export const getAllCart = async (url, id_app, token) => {
+  const res = await axios.get(
+    `${URL}/api/${id_app}/${url}?access_token=${token}`
   );
   return res;
 };
